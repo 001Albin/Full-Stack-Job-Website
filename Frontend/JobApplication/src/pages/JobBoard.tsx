@@ -4,7 +4,11 @@ import { fetchJobs } from '../services/jobService';
 import { Header, Footer, SearchBar, JobCard, LoadingSpinner, EmptyState } from '../components';
 import { useDebounce } from '../hooks/useDebounce';
 
-const JobBoard = () => {
+interface JobBoardProps {
+  onAddJob?: () => void;
+}
+
+const JobBoard = ({ onAddJob }: JobBoardProps) => {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -38,7 +42,7 @@ const JobBoard = () => {
 
   return (
     <div className="min-h-screen bg-linear-to-br from-slate-50 via-white to-indigo-50">
-      <Header />
+      <Header onAddJob={onAddJob} />
 
       {/* Hero Section */}
       <section className="max-w-6xl mx-auto px-6 pt-16 pb-12">
